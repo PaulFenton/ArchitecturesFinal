@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:flowable="http://flowable.org/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="testProcess" name="Holiday Request" isExecutable="true">
+    <startEvent id="startEvent"></startEvent>
+    <userTask id="makeEstimate" name="Make Estimate" activiti:assignee="Paul"></userTask>
+    <endEvent id="approveEnd"></endEvent>
+    <userTask id="approveEstimate" name="Approve Estimate" activiti:assignee="Dario"></userTask>
+    <exclusiveGateway id="isApproved" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="reviewFeedback" name="Review Feedback" activiti:assignee="Paul"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="makeEstimate"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="makeEstimate" targetRef="approveEstimate"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="approveEstimate" targetRef="isApproved"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="isApproved" targetRef="approveEnd"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="isApproved" targetRef="reviewFeedback"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="reviewFeedback" targetRef="makeEstimate"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_testProcess">
+    <bpmndi:BPMNPlane bpmnElement="testProcess" id="BPMNPlane_testProcess">
+      <bpmndi:BPMNShape bpmnElement="startEvent" id="BPMNShape_startEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="makeEstimate" id="BPMNShape_makeEstimate">
+        <omgdc:Bounds height="60.0" width="100.0" x="220.0" y="258.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approveEnd" id="BPMNShape_approveEnd">
+        <omgdc:Bounds height="35.0" width="35.0" x="680.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approveEstimate" id="BPMNShape_approveEstimate">
+        <omgdc:Bounds height="55.0" width="105.0" x="390.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="isApproved" id="BPMNShape_isApproved">
+        <omgdc:Bounds height="40.0" width="40.0" x="590.0" y="267.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="reviewFeedback" id="BPMNShape_reviewFeedback">
+        <omgdc:Bounds height="55.0" width="105.0" x="390.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="115.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="220.0" y="288.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="320.0" y="288.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="495.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="630.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="610.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="610.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="495.0" y="197.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="390.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="258.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
