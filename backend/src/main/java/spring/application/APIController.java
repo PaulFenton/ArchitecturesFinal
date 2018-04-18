@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,11 +20,13 @@ public class APIController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
+    
     @RequestMapping("/test")
     public String test() {
         return "test route";
     }
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/start")
     public String startProcessEngine() {
     	String pId = flowableService.start();
@@ -31,6 +34,7 @@ public class APIController {
     	return "Created process with id: " + pId;
     }
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/getTasks")
     public List<TaskDetail> getTasks() {
     	//List<TaskDetail> taskList = new ArrayList<TaskDetail>();
@@ -38,6 +42,7 @@ public class APIController {
     	return taskList;
     }
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/completeTask")
     public String completeTask(@RequestParam("taskId") String taskId) {
     	String result = flowableService.completeTask(taskId);
