@@ -1,5 +1,5 @@
 
-package spring.application;
+package service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +57,9 @@ public class FlowableServiceImpl implements FlowableService{
 	}
 
 	@Override
-	public List<TaskDetail> getTasks() {
+	public List<TaskDetail> getTasks(String userId) {
 		// TODO Auto-generated method stub
-		List<Task> tasks = this.taskService.createTaskQuery().list();
+		List<Task> tasks = this.taskService.createTaskQuery().taskCandidateOrAssigned(userId).list();
 		return parseTaskDetail(tasks);
 	}
 	

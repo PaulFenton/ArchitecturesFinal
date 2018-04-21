@@ -1,4 +1,4 @@
-package spring.application;
+package service;
 
 public class TaskDetail {
 
