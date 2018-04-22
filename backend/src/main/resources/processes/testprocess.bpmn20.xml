@@ -2,11 +2,13 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:flowable="http://flowable.org/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
   <process id="testProcess" name="Holiday Request" isExecutable="true">
     <startEvent id="startEvent"></startEvent>
-    <userTask id="makeEstimate" name="Make Estimate" activiti:assignee="Paul"></userTask>
+    <userTask id="makeEstimate" name="Make Estimate" activiti:assignee="${assignee}" activiti:dueDate="${duedate}">
+      <documentation>${description}</documentation>
+    </userTask>
     <endEvent id="approveEnd"></endEvent>
-    <userTask id="approveEstimate" name="Approve Estimate" activiti:assignee="Dario"></userTask>
+    <userTask id="approveEstimate" name="Approve Estimate" activiti:assignee="${approver}"></userTask>
     <exclusiveGateway id="isApproved" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="reviewFeedback" name="Review Feedback" activiti:assignee="Paul"></userTask>
+    <userTask id="reviewFeedback" name="Review Feedback" activiti:assignee="${assignee}"></userTask>
     <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="makeEstimate"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="makeEstimate" targetRef="approveEstimate"></sequenceFlow>
     <sequenceFlow id="flow3" sourceRef="approveEstimate" targetRef="isApproved"></sequenceFlow>
