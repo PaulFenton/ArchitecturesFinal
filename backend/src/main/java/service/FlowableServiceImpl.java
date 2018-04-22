@@ -2,7 +2,9 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.flowable.engine.HistoryService;
@@ -49,9 +51,9 @@ public class FlowableServiceImpl implements FlowableService{
 	}
 
 	@Override
-	public String start() {
+	public String start(Map<String, Object> processInitVariables) {
 		// TODO Auto-generated method stub
-		this.processInstance = runtimeService.startProcessInstanceByKey("testProcess");
+		this.processInstance = runtimeService.startProcessInstanceByKey("testProcess", processInitVariables);
 		
 		return this.processInstance.getProcessInstanceId();
 	}
@@ -60,6 +62,12 @@ public class FlowableServiceImpl implements FlowableService{
 	public List<TaskDetail> getTasks(String userId) {
 		// TODO Auto-generated method stub
 		List<Task> tasks = this.taskService.createTaskQuery().taskCandidateOrAssigned(userId).list();
+		return parseTaskDetail(tasks);
+	}
+	
+	@Override
+	public List<TaskDetail> getAllTasks() {
+		List<Task> tasks = this.taskService.createTaskQuery().list();
 		return parseTaskDetail(tasks);
 	}
 	
@@ -81,7 +89,9 @@ public class FlowableServiceImpl implements FlowableService{
 		tasks.forEach(task -> taskDetails.add(new TaskDetail(
 				task.getId(),
 				task.getName(),
-				task.getAssignee()
+				task.getAssignee(),
+				task.getDescription(),
+				task.getDueDate()
 			)));
 		return taskDetails;
 	}
