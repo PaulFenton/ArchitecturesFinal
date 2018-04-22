@@ -56,8 +56,8 @@ public class APIController {
     }    
     
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping("/completeTask")
-    public String completeTask(@RequestParam("taskId") String taskId) {
+    @RequestMapping("/completeTask/{taskId}")
+    public String completeTask(@PathVariable String taskId) {
     	String result = flowableService.completeTask(taskId);
     	return result;
     }
