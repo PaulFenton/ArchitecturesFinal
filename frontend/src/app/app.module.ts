@@ -39,7 +39,7 @@ import { EstimateComponent } from './estimate/estimate.component';
     AppRoutingModule,
 
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
