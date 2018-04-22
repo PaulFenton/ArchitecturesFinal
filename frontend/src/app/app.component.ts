@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   tasks: Observable<Task[]>;
 
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
@@ -36,4 +37,3 @@ export class AppComponent {
   ngOnInit() {
   }
 }
-
