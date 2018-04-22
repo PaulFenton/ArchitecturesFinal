@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 
 export class Task {
@@ -24,7 +24,7 @@ export class EstimateProcessConfig {
 @Injectable()
 export class DataService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   // starts new process instance when a new estimate request is made
   startProcessInstance(instanceConfig: EstimateProcessConfig): Observable<string> {

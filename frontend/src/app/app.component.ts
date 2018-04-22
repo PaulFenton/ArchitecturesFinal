@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DataService, Task } from './data.service';
 import { Observable } from 'rxjs/Observable';
+import { MatMenuTrigger } from '@angular/material';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-root',
@@ -8,17 +10,30 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
   tasks: Observable<Task[]>;
+
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private router: Router) {
 
   }
 
-  ngOnInit() {
-    this.tasks = this.dataService.getTasks();
+  selectDashboard() {
+    console.log("dashboard selected");
+    this.router.navigate(['/dashboard']); 
+  }
 
-    this.tasks.subscribe(tasks => console.log(tasks));
+  selectNewTask() {
+    console.log("new task selected");
+    this.router.navigate(['/estimate']); 
+  }
+
+  selectLogout() {
+    console.log("logout selected");
+    this.router.navigate(['/login']);
+  }
+
+  ngOnInit() {
   }
 }
 
