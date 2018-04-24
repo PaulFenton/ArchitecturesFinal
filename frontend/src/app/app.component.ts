@@ -20,17 +20,14 @@ export class AppComponent {
   }
 
   selectDashboard() {
-    console.log('dashboard selected');
     this.router.navigate(['/dashboard']);
   }
 
   selectNewTask() {
-    console.log('new task selected');
     this.router.navigate(['/estimate']);
   }
 
   selectLogout() {
-    console.log('logout selected');
     this.router.navigate(['/login']);
   }
 
