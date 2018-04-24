@@ -1,3 +1,16 @@
-<p>
-  login works!
-</p>
+<div class="example-container" flex="50" layout="row" layout-align="center">
+  <mat-card>
+    <mat-card-title>Please enter your user credentials:</mat-card-title>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="Username" [(ngModel)]="credentials.name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" [(ngModel)]="credentials.password">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="login(credentials)">Login</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
