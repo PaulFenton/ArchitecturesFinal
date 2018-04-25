@@ -11,6 +11,24 @@ export class Task {
   ) {}
 }
 
+export class LineItem {
+  constructor(
+    public id: string,
+    public name: string,
+    public category: string,
+    public description: string,
+    public cost: Number
+  ) {}
+}
+export class Estimate {
+  constructor(
+    public title: string,
+    public description: string,
+    public costs: LineItem[],
+    public total: Number
+  ) {}
+}
+
 export class EstimateProcessConfig {
   constructor(
     public name: string,
@@ -48,8 +66,8 @@ export class DataService {
   }
 
   // completes a task based on taskId
-  completeTask(taskId: string): Observable<string> {
-    return this.http.get('http://localhost:8080/completeTask/' + taskId)
+  completeTask(taskId: string, estimate: Estimate): Observable<string> {
+    return this.http.post('http://localhost:8080/completeTask/' + taskId, estimate)
        .map((res: Response) => res.json())
        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
