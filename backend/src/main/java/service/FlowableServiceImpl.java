@@ -2,15 +2,12 @@
 package service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.flowable.engine.HistoryService;
 import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.ProcessEngineConfiguration;
-import org.flowable.engine.ProcessEngines;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
@@ -26,7 +23,6 @@ public class FlowableServiceImpl implements FlowableService{
 	private ProcessEngine processEngine;
 	private RepositoryService repositoryService;
 	private RuntimeService runtimeService;
-	private HistoryService historyService;
 	private ProcessInstance processInstance;
 	private TaskService taskService;
 	
@@ -41,7 +37,6 @@ public class FlowableServiceImpl implements FlowableService{
 		this.processEngine = cfg.buildProcessEngine();
 		this.repositoryService = this.processEngine.getRepositoryService();
 		this.runtimeService = this.processEngine.getRuntimeService();
-		this.historyService = this.processEngine.getHistoryService();
 		this.taskService = this.processEngine.getTaskService();
 		
 		this.repositoryService.createDeployment().name("testProcess")
@@ -51,7 +46,7 @@ public class FlowableServiceImpl implements FlowableService{
 	}
 
 	@Override
-	public String start(Map<String, Object> processInitVariables) {
+	public String startProcessInstance(Map<String, Object> processInitVariables) {
 		// TODO Auto-generated method stub
 		this.processInstance = runtimeService.startProcessInstanceByKey("testProcess", processInitVariables);
 		
@@ -94,6 +89,16 @@ public class FlowableServiceImpl implements FlowableService{
 				task.getDueDate()
 			)));
 		return taskDetails;
+	}
+
+	@Override
+	public List<UserDetail> getCandidateUsers() {
+		// hard code the user list for now...
+		List<UserDetail> list = new ArrayList<UserDetail>();
+		list.add(new UserDetail("Paul", "developer"));
+		list.add(new UserDetail("Dario", "developer"));
+		list.add(new UserDetail("Johnny", "Appleseed"));
+		return list;
 	}
 
 }

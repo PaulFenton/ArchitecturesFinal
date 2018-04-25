@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import service.FlowableService;
 import service.TaskDetail;
+import service.UserDetail;
 
 @RestController
 public class APIController {
@@ -27,7 +27,7 @@ public class APIController {
     
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/startProcessInstance")
-    public String startProcessEngine(@RequestBody Map<String, Object> initialTask) {
+    public String startProcessInstance(@RequestBody Map<String, Object> initialTask) {
     	// check the body request
     	if(initialTask.get("name").equals(null)) {
     		return "Missing task name.";
@@ -36,7 +36,7 @@ public class APIController {
     	} if(initialTask.get("description").equals(null)) {
     		return "Missing task description.";
     	}
-    	String pId = flowableService.start(initialTask);
+    	String pId = flowableService.startProcessInstance(initialTask);
     	
     	return "Created process with id: " + pId;
     }
@@ -60,5 +60,12 @@ public class APIController {
     public String completeTask(@PathVariable String taskId) {
     	String result = flowableService.completeTask(taskId);
     	return result;
+    }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping("/getCandidateUsers")
+    public List<UserDetail> getCandidateUSers() {
+    	List<UserDetail> userList = flowableService.getCandidateUsers();
+    	return userList;
     }
 }
