@@ -53,12 +53,19 @@ public class APIController {
     public List<TaskDetail> getAllTasks() {
     	List<TaskDetail> taskList = flowableService.getAllTasks();
     	return taskList;
-    }    
+    }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping("/getTaskDetails/{taskId}")
+    public TaskDetail getTaskDetails(@PathVariable String taskId) {
+    	TaskDetail taskDetail = flowableService.getTaskDetail(taskId);
+    	return taskDetail;
+    }
     
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/completeTask/{taskId}")
-    public String completeTask(@PathVariable String taskId) {
-    	String result = flowableService.completeTask(taskId);
+    public String completeTask(@PathVariable String taskId, @RequestBody Map<String, Object> estimate) {
+    	String result = flowableService.completeTask(taskId, estimate);
     	return result;
     }
     

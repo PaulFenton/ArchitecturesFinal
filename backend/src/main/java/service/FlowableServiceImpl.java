@@ -67,9 +67,9 @@ public class FlowableServiceImpl implements FlowableService{
 	}
 	
 	@Override
-	public String completeTask(String taskId) {
+	public String completeTask(String taskId, Map<String, Object> estimate) {
 		if(this.taskService.createTaskQuery().list().stream().map(task -> task.getId()).collect(Collectors.toList()).contains(taskId)) {
-			taskService.complete(taskId, null);
+			taskService.complete(taskId, estimate);
 			return "Marked Task " + taskId + " as Complete!";
 		} else {
 			return "TaskId=" + taskId + " does not exist :(";
@@ -99,6 +99,17 @@ public class FlowableServiceImpl implements FlowableService{
 		list.add(new UserDetail("Dario", "developer"));
 		list.add(new UserDetail("Johnny", "Appleseed"));
 		return list;
+	}
+
+	@Override
+	public TaskDetail getTaskDetail(String taskId) {
+		// TODO Auto-generated method stub
+		Task task = this.taskService.createTaskQuery().taskId(taskId).singleResult();
+		return new TaskDetail(task.getId(),
+								task.getName(),
+								task.getAssignee(),
+								task.getDescription(),
+								task.getDueDate());
 	}
 
 }
