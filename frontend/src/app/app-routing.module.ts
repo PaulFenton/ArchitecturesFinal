@@ -43,7 +43,6 @@ const homeRoutes: Routes = [
 
 const secureHomeRoutes: Routes = [
   {
-
       path: '',
       redirectTo: '/securehome',
       pathMatch: 'full'
@@ -54,6 +53,11 @@ const secureHomeRoutes: Routes = [
         { path: 'dashboard', component: DashboardComponent },
         { path: 'estimate', component: EstimateComponent },
         { path: 'makeEstimate/:taskId', component: MakeEsimtateComponent},
+        {
+          path: '',
+          redirectTo: 'dashboard',
+          pathMatch: 'full'
+        },
       ]
   }
 ];
