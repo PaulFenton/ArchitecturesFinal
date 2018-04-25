@@ -34,9 +34,34 @@ Navigate to "localhost:8080/test", you should see "welcome to backend!"
 
 * /getAllTasks    -   this returns all tasks currently in the system
 
-* /completeTask/{taskId}   -   this completes a task based on a provided taskId parameter
+* /getTaskDetails/{taskId}   - this gets task information for a specific task
+
+* /completeTask/{taskId}   -   this post request completes a task based on a provided taskId parameter
 ```
   localhost:8080/completeTask/2514
+```
+The body for /complete task should look like:
+```
+{
+      "title": "testTitle",
+      "description": "test desc",
+      "costs": [
+      	{
+      		"id": 1, 
+	      	"name": "Item name...", 
+	      	"category": "Engineering", 
+	      	"description": "right click to add rows...", 
+	      	"cost": 0.0
+      	},{
+      		"id": 2, 
+	      	"name": "Item name...", 
+	      	"category": "Engineering", 
+	      	"description": "right click dsdsto add rows...", 
+	      	"cost": 1.2
+      	}],
+      "total": 1000
+	
+}
 ```
 
 ## Running the Front End Locally:
@@ -50,4 +75,4 @@ Open terminal and cd to the /frontend directory and run the following commands:
 npm install
 ng serve
 ```
-Navigate to "localhost:4200", you should see "welcome to frontend!"
+Navigate to "localhost:4200", you should see the app dashboard
