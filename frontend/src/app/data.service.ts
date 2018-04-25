@@ -13,7 +13,7 @@ export class Task {
 
 export class LineItem {
   constructor(
-    public id: string,
+    public id: Number,
     public name: string,
     public category: string,
     public description: string,
@@ -48,27 +48,34 @@ export class DataService {
   startProcessInstance(instanceConfig: EstimateProcessConfig): Observable<string> {
     return this.http.post('http://localhost:8080/startProcessInstance', instanceConfig)
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error starting Process Instance'));
   }
 
   // gets all tasks for a user
   getTasks(userId: string): Observable<Task[]> {
     return this.http.get('http://localhost:8080/getTasks/' + userId)
        .map((res: Response) => res.json())
-       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+       .catch((error: any) => Observable.throw(error.json().error || 'Server error getting Tasks'));
+  }
+
+  // gets details for a specific task
+  getTaskDetails(taskId: string): Observable<Task> {
+    return this.http.get('http://localhost:8080/getTaskDetails/' + taskId)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error getting task details'));
   }
 
   // gets all tasks for all users
   getAllTasks(): Observable<Task[]> {
     return this.http.get('http://localhost:8080/getAllTasks')
        .map((res: Response) => res.json())
-       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+       .catch((error: any) => Observable.throw(error.json().error || 'Server error getting all tasks'));
   }
 
   // completes a task based on taskId
   completeTask(taskId: string, estimate: Estimate): Observable<string> {
     return this.http.post('http://localhost:8080/completeTask/' + taskId, estimate)
        .map((res: Response) => res.json())
-       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+       .catch((error: any) => Observable.throw(error.json().error || 'Server error completing task'));
   }
 }
