@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService, EstimateProcessConfig, Task} from '../data.service';
+import {DataService, EstimateProcessConfig, Task} from '../../service/data.service';
 
 @Component({
   selector: 'app-dashboard',

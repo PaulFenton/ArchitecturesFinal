@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LineItem, EstimateProcessConfig, DataService, Task, Estimate } from '../data.service';
+import { LineItem, EstimateProcessConfig, DataService, Task, Estimate } from '../../service/data.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import * as Handsontable from 'handsontable';

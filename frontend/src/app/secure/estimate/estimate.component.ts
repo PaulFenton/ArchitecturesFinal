@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService, EstimateProcessConfig} from '../data.service';
+import {DataService, EstimateProcessConfig} from '../../service/data.service';
 
 @Component({
   selector: 'app-estimate',

@@ -10,17 +10,17 @@ import { NgModule } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { DataService } from './data.service';
+import { DataService } from './service/data.service';
 
 
 import { AppComponent } from './app.component';
 import { HotTableModule } from '@handsontable/angular';
-import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderComponent } from './public/header/header.component';
+import { LoginComponent } from './public/login/login.component';
+import { DashboardComponent } from './secure/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
-import { EstimateComponent } from './estimate/estimate.component';
-import { MakeEsimtateComponent } from './make-esimtate/make-esimtate.component';
+import { EstimateComponent } from './secure/estimate/estimate.component';
+import { MakeEsimtateComponent } from './secure/make-esimtate/make-esimtate.component';
 
 
 @NgModule({
