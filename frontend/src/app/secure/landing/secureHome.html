@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    <span class="fill-remaining-space">Estimate Manager</span>
+    <span class="fill-remaining-space">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" [overlapTrigger]="false">
+        <button mat-menu-item [routerLink]="['/securehome/dashboard']" >
+          <mat-icon>home</mat-icon>
+          Dashboard
+        </button>
+        <button mat-menu-item [routerLink]="['/securehome/logout']">
+          <mat-icon>exit_to_app</mat-icon>
+          Logout
+        </button>
+      </mat-menu>
+    </span>
+</mat-toolbar>
+<router-outlet></router-outlet>

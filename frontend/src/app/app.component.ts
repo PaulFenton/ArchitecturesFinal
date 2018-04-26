@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DataService, Task } from './data.service';
+import { DataService, Task } from './service/data.service';
 import { Observable } from 'rxjs/Observable';
 import { MatMenuTrigger } from '@angular/material';
 import { Router } from '@angular/router';

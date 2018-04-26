@@ -10,27 +10,52 @@ import { NgModule } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { DataService } from './data.service';
+import { DataService } from './service/data.service';
 
 
 import { AppComponent } from './app.component';
 import { HotTableModule } from '@handsontable/angular';
-import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderComponent } from './public/header/header.component';
+import { DashboardComponent } from './secure/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
-import { EstimateComponent } from './estimate/estimate.component';
-import { MakeEsimtateComponent } from './make-esimtate/make-esimtate.component';
+import { EstimateComponent } from './secure/estimate/estimate.component';
+import { MakeEsimtateComponent } from './secure/make-esimtate/make-esimtate.component';
+import { NewPasswordComponent } from './public/auth/newpassword/newpassword.component';
+import { LoginComponent } from './public/auth/login/login.component';
+import { LogoutComponent, RegistrationConfirmationComponent } from './public/auth/confirm/confirmRegistration.component';
+import { ResendCodeComponent } from './public/auth/resend/resendCode.component';
+import { ForgotPasswordStep1Component, ForgotPassword2Component } from './public/auth/forgot/forgotPassword.component';
+import { RegisterComponent } from './public/auth/register/registration.component';
+import { MFAComponent } from './public/auth/mfa/mfa.component';
+import { HomeLandingComponent, HomeComponent } from './public/home.component';
+import { CognitoUtil } from './service/cognito.service';
+import { AwsUtil } from './service/aws.service';
+import { UserRegistrationService } from './service/user-registration.service';
+import { UserLoginService } from './service/user-login.service';
+import { UserParametersService } from './service/user-parameters.service';
+import { SecureHomeComponent } from './secure/landing/securehome.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    NewPasswordComponent,
+    LoginComponent,
+    LogoutComponent,
+    RegistrationConfirmationComponent,
+    ResendCodeComponent,
+    ForgotPasswordStep1Component,
+    ForgotPassword2Component,
+    RegisterComponent,
+    MFAComponent,
+    HomeLandingComponent,
+    HomeComponent,
+    SecureHomeComponent,
     EstimateComponent,
     MakeEsimtateComponent,
     HeaderComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +68,15 @@ import { MakeEsimtateComponent } from './make-esimtate/make-esimtate.component';
     AppRoutingModule,
 
   ],
-  providers: [DataService, HotTableModule],
+  providers: [
+    CognitoUtil,
+    AwsUtil,
+    UserRegistrationService,
+    UserLoginService,
+    UserParametersService,
+    DataService,
+    HotTableModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
