@@ -14,7 +14,6 @@ export class MakeEsimtateComponent implements OnInit {
   task$: Observable<Task>;
   taskId: string;
   instance: string = 'hot';
-  dataset: any[] = Handsontable.helper.createSpreadsheetData(10, 10);
 
   estimateTable: LineItem[] = [{id: 1, name: "Item name...", category: "Engineering", description: "right click to add rows...", cost: 0.0},
                                 {id: 1, name: "...", category: "Labor", description: "...", cost: 0}];
