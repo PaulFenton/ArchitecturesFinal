@@ -12,6 +12,7 @@ import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
+import org.flowable.engine.runtime.DataObject;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.task.api.Task;
 import org.springframework.stereotype.Service;
@@ -105,11 +106,31 @@ public class FlowableServiceImpl implements FlowableService{
 	public TaskDetail getTaskDetail(String taskId) {
 		// TODO Auto-generated method stub
 		Task task = this.taskService.createTaskQuery().taskId(taskId).singleResult();
+		Map<String, Object> dobj = this.taskService.getVariables(taskId);
+		System.out.println(dobj.toString());
 		return new TaskDetail(task.getId(),
 								task.getName(),
 								task.getAssignee(),
 								task.getDescription(),
 								task.getDueDate());
+	}
+	
+	@Override
+	public Estimate getEstimate(String taskId) {
+		Map<String, Object> obj = this.taskService.getVariables(taskId);
+		Estimate estimate = new Estimate();
+		estimate.setTitle((String)obj.get("title"));
+		List<LineItem> lineItems = new ArrayList<LineItem>();
+		((ArrayList<Map<String, Object>>)obj.get("costs")).stream().forEach(cost -> lineItems.add(new LineItem(cost.get("id").toString(),
+				(String)cost.get("name"),
+				(String)cost.get("category"),
+				(String)cost.get("description"),
+				(double)cost.get("cost"))));
+			
+		estimate.setCosts(lineItems);
+		estimate.setDescription((String)obj.get("description"));
+		estimate.setTotal((double)obj.get("total"));
+		return estimate;
 	}
 
 }

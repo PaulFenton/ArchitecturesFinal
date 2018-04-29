@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import service.Estimate;
 import service.FlowableService;
 import service.TaskDetail;
 import service.UserDetail;
@@ -51,6 +52,7 @@ public class APIController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/getAllTasks")
     public List<TaskDetail> getAllTasks() {
+    	System.out.println("got alltasks");
     	List<TaskDetail> taskList = flowableService.getAllTasks();
     	return taskList;
     }
@@ -60,6 +62,13 @@ public class APIController {
     public TaskDetail getTaskDetails(@PathVariable String taskId) {
     	TaskDetail taskDetail = flowableService.getTaskDetail(taskId);
     	return taskDetail;
+    }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping("/getEstimate/{taskId}")
+    public Estimate getEstimate(@PathVariable String taskId) {
+    	Estimate estimate = flowableService.getEstimate(taskId);
+    	return estimate;
     }
     
     @CrossOrigin(origins = "http://localhost:4200")

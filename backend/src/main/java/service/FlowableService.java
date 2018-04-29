@@ -11,4 +11,5 @@ public interface FlowableService {
 	public String completeTask(String taskId, Map<String, Object> estimate);
 	public List<UserDetail> getCandidateUsers();
 	public TaskDetail getTaskDetail(String taskId);
+	public Estimate getEstimate(String taskId);
 }
