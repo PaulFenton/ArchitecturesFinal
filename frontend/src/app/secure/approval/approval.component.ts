@@ -77,13 +77,26 @@ export class ApprovalComponent implements OnInit {
       estimate: estimate
     }
     this.dataService.completeTask(this.taskId, approved).subscribe(res => {
-      console.log("approved task: ", this.taskId);
       //go back to the dashboard
       this.router.navigate(['/securehome/dashboard/']);
     });
   }
   rejectEstimate() {
-
+    // build the estimate object
+    let estimate: Estimate = {
+      title: this.title,
+      description: this.description,
+      costs: this.estimateTable,
+      total: this.total
+    }
+    let approved: Approval = {
+      approved: false,//reject the estimate
+      estimate: estimate
+    }
+    this.dataService.completeTask(this.taskId, approved).subscribe(res => {
+      //go back to the dashboard
+      this.router.navigate(['/securehome/dashboard/']);
+    });
   }
 
 }
