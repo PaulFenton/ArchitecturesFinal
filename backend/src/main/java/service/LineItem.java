@@ -5,9 +5,9 @@ public class LineItem  {
 	private String name;
 	private String category;
 	private String description;
-	private double cost;
+	private Number cost;
 	
-	public LineItem(String id, String name, String category, String description, double cost) {
+	public LineItem(String id, String name, String category, String description, Number cost) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,10 +40,10 @@ public class LineItem  {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public double getCost() {
+	public Number getCost() {
 		return cost;
 	}
-	public void setCost(double cost) {
+	public void setCost(Number cost) {
 		this.cost = cost;
 	}
 	

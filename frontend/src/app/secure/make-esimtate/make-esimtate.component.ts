@@ -38,15 +38,13 @@ export class MakeEsimtateComponent implements OnInit {
   { 
     //this.request.name = "test request";
   }
-
   ngOnInit() {
 
+    this.taskId = this.route.snapshot.params['taskId'];
     this.task$ = this.route.paramMap
       .switchMap((params: ParamMap) => {
-        this.taskId = params.get('taskId');
         return this.dataService.getTaskDetails(this.taskId);
-      })
-        
+    })
   }
 
   submitEstimate() {
@@ -56,11 +54,15 @@ export class MakeEsimtateComponent implements OnInit {
       title: "testTitle",
       description: "test desc",
       costs: this.estimateTable,
-      total: 1000
+      total: 1000.0
     }
     this.dataService.completeTask(this.taskId, estimate).subscribe(res => {
       console.log("completed task: ", res);
+      //go back to the dashboard
+      this.router.navigate(['/securehome/dashboard/']);
     });
+
+
   }
 
 }

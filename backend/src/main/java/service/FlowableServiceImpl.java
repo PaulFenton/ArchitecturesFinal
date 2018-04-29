@@ -47,11 +47,11 @@ public class FlowableServiceImpl implements FlowableService{
 	}
 
 	@Override
-	public String startProcessInstance(Map<String, Object> processInitVariables) {
+	public SimpleResponse startProcessInstance(Map<String, Object> processInitVariables) {
 		// TODO Auto-generated method stub
 		this.processInstance = runtimeService.startProcessInstanceByKey("testProcess", processInitVariables);
 		
-		return this.processInstance.getProcessInstanceId();
+		return new SimpleResponse("Created process: " + this.processInstance.getProcessInstanceId());
 	}
 
 	@Override
@@ -68,12 +68,12 @@ public class FlowableServiceImpl implements FlowableService{
 	}
 	
 	@Override
-	public String completeTask(String taskId, Map<String, Object> estimate) {
+	public SimpleResponse completeTask(String taskId, Map<String, Object> estimate) {
 		if(this.taskService.createTaskQuery().list().stream().map(task -> task.getId()).collect(Collectors.toList()).contains(taskId)) {
 			taskService.complete(taskId, estimate);
-			return "Marked Task " + taskId + " as Complete!";
+			return new SimpleResponse("Completed task: " + taskId);
 		} else {
-			return "TaskId=" + taskId + " does not exist :(";
+			return new SimpleResponse("TaskId=" + taskId);
 		}
 		
 		
@@ -125,11 +125,11 @@ public class FlowableServiceImpl implements FlowableService{
 				(String)cost.get("name"),
 				(String)cost.get("category"),
 				(String)cost.get("description"),
-				(double)cost.get("cost"))));
+				(Number)cost.get("cost"))));
 			
 		estimate.setCosts(lineItems);
 		estimate.setDescription((String)obj.get("description"));
-		estimate.setTotal((double)obj.get("total"));
+		estimate.setTotal((Number)obj.get("total"));
 		return estimate;
 	}
 

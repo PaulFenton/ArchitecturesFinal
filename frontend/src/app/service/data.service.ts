@@ -39,6 +39,7 @@ export class EstimateProcessConfig {
     public approver: string
   ) {}
 }
+const options = {responseType: 'text' as 'text'};
 
 @Injectable()
 export class DataService {
@@ -48,35 +49,43 @@ export class DataService {
   // starts new process instance when a new estimate request is made
   startProcessInstance(instanceConfig: EstimateProcessConfig): Observable<string> {
     return this.http.post('http://localhost:8080/startProcessInstance', instanceConfig)
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error starting Process Instance'));
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error || 'Server error starting Process Instance'));
   }
 
   // gets all tasks for a user
   getTasks(userId: string): Observable<Task[]> {
     return this.http.get('http://localhost:8080/getTasks/' + userId)
-       .map((res: Response) => res.json())
-       .catch((error: any) => Observable.throw(error.json().error || 'Server error getting Tasks'));
+       .map((res: Response) => res)
+       .catch((error: any) => Observable.throw(error || 'Server error getting Tasks'));
   }
 
   // gets details for a specific task
   getTaskDetails(taskId: string): Observable<Task> {
     return this.http.get('http://localhost:8080/getTaskDetails/' + taskId)
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error getting task details'));
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error || 'Server error getting task details'));
+  }
+
+  // gets estimate details for an approval or review task
+  getEstimate(taskId: string): Observable<Estimate> {
+    return this.http.get('http://localhost:8080/getEstimate/' + taskId)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error|| 'Server error getting task details'));
   }
 
   // gets all tasks for all users
   getAllTasks(): Observable<Task[]> {
     return this.http.get('http://localhost:8080/getAllTasks/')
        .map((res: Response) => res)
-       .catch((error: any) => {console.log(error); return Observable.throw(error.json().error || 'Server error getting all tasks')});
+       .catch((error: any) => {console.log(error); return Observable.throw(error || 'Server error getting all tasks')});
   }
 
   // completes a task based on taskId
-  completeTask(taskId: string, estimate: Estimate): Observable<string> {
-    return this.http.post('http://localhost:8080/completeTask/' + taskId, estimate)
-       .map((res: Response) => res.json())
-       .catch((error: any) => Observable.throw(error.json().error || 'Server error completing task'));
+
+  completeTask(taskId: string, payload: any): Observable<string> {
+    return this.http.post('http://localhost:8080/completeTask/' + taskId, payload)
+       .map( (res: Response) => res)
+       .catch((error: any) => Observable.throw(error || 'Server error completing task'));
   }
 }

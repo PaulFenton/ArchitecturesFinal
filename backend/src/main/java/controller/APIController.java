@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import service.Estimate;
 import service.FlowableService;
+import service.SimpleResponse;
 import service.TaskDetail;
 import service.UserDetail;
 
@@ -28,18 +29,17 @@ public class APIController {
     
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/startProcessInstance")
-    public String startProcessInstance(@RequestBody Map<String, Object> initialTask) {
+    public SimpleResponse startProcessInstance(@RequestBody Map<String, Object> initialTask) {
     	// check the body request
     	if(initialTask.get("name").equals(null)) {
-    		return "Missing task name.";
+    		return new SimpleResponse("Missing task name.");
     	} if(initialTask.get("assignee").equals(null)) {
-    		return "Missing task assignee.";
+    		return new SimpleResponse("Missing task assignee.");
     	} if(initialTask.get("description").equals(null)) {
-    		return "Missing task description.";
+    		return new SimpleResponse("Missing task description.");
     	}
-    	String pId = flowableService.startProcessInstance(initialTask);
     	
-    	return "Created process with id: " + pId;
+    	return flowableService.startProcessInstance(initialTask);
     }
     
     @CrossOrigin(origins = "http://localhost:4200")
@@ -73,9 +73,8 @@ public class APIController {
     
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/completeTask/{taskId}")
-    public String completeTask(@PathVariable String taskId, @RequestBody Map<String, Object> estimate) {
-    	String result = flowableService.completeTask(taskId, estimate);
-    	return result;
+    public SimpleResponse completeTask(@PathVariable String taskId, @RequestBody Map<String, Object> estimate) {
+    	return flowableService.completeTask(taskId, estimate);
     }
     
     @CrossOrigin(origins = "http://localhost:4200")

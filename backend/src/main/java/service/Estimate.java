@@ -7,7 +7,7 @@ public class Estimate {
 	private String title;
 	private String description;
 	private List<LineItem> costs;
-	private double total;
+	private Number total;
 	
 	public String getTitle() {
 		return title;
@@ -27,10 +27,10 @@ public class Estimate {
 	public void setCosts(List<LineItem> costs) {
 		this.costs = costs;
 	}
-	public double getTotal() {
+	public Number getTotal() {
 		return total;
 	}
-	public void setTotal(double total) {
+	public void setTotal(Number total) {
 		this.total = total;
 	}
 	

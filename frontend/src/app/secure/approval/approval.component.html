@@ -1,3 +1,25 @@
-<p>
-  approval works!
-</p>
+<div class="container">
+    <mat-card>
+      <mat-card-title>Estimate Approval</mat-card-title>
+      <mat-card-content>
+        <!--<mat-form-field>
+          <input matInput placeholder="Name" [(ngModel)]="this.request.name">
+        </mat-form-field>-->
+        <hot-table
+          [hotId]="instance"
+          [columns]="columns"
+          [colHeaders]="headers"
+          [colWidths]="colWidths"
+          [data]="estimateTable"
+          [outsideClickDeselects]="false"
+          [contextMenu]="true"
+          [rowHeaders]="true"
+          [colHeaders]="true">
+        </hot-table>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="approveEstimate()">Approve Estimate</button>
+        <button mat-button (click)="rejectEstimate()">Reject Estimate</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
