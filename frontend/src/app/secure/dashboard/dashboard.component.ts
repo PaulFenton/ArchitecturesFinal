@@ -21,6 +21,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(private router: Router, private dataService: DataService) {
     this.selection = new Task("","","","","");
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
   }
 
   ngOnInit() {

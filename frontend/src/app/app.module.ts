@@ -34,6 +34,7 @@ import { UserRegistrationService } from './service/user-registration.service';
 import { UserLoginService } from './service/user-login.service';
 import { UserParametersService } from './service/user-parameters.service';
 import { SecureHomeComponent } from './secure/landing/securehome.component';
+import { ApprovalComponent } from './secure/approval/approval.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { SecureHomeComponent } from './secure/landing/securehome.component';
     HeaderComponent,
     LoginComponent,
     DashboardComponent,
+    ApprovalComponent,
     AppComponent
   ],
   imports: [

@@ -12,6 +12,7 @@ import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
+import org.flowable.engine.runtime.DataObject;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.task.api.Task;
 import org.springframework.stereotype.Service;
@@ -46,11 +47,11 @@ public class FlowableServiceImpl implements FlowableService{
 	}
 
 	@Override
-	public String startProcessInstance(Map<String, Object> processInitVariables) {
+	public SimpleResponse startProcessInstance(Map<String, Object> processInitVariables) {
 		// TODO Auto-generated method stub
 		this.processInstance = runtimeService.startProcessInstanceByKey("testProcess", processInitVariables);
 		
-		return this.processInstance.getProcessInstanceId();
+		return new SimpleResponse("Created process: " + this.processInstance.getProcessInstanceId());
 	}
 
 	@Override
@@ -67,12 +68,12 @@ public class FlowableServiceImpl implements FlowableService{
 	}
 	
 	@Override
-	public String completeTask(String taskId, Map<String, Object> estimate) {
+	public SimpleResponse completeTask(String taskId, Map<String, Object> estimate) {
 		if(this.taskService.createTaskQuery().list().stream().map(task -> task.getId()).collect(Collectors.toList()).contains(taskId)) {
 			taskService.complete(taskId, estimate);
-			return "Marked Task " + taskId + " as Complete!";
+			return new SimpleResponse("Completed task: " + taskId);
 		} else {
-			return "TaskId=" + taskId + " does not exist :(";
+			return new SimpleResponse("TaskId=" + taskId);
 		}
 		
 		
@@ -105,11 +106,31 @@ public class FlowableServiceImpl implements FlowableService{
 	public TaskDetail getTaskDetail(String taskId) {
 		// TODO Auto-generated method stub
 		Task task = this.taskService.createTaskQuery().taskId(taskId).singleResult();
+		Map<String, Object> dobj = this.taskService.getVariables(taskId);
+		System.out.println(dobj.toString());
 		return new TaskDetail(task.getId(),
 								task.getName(),
 								task.getAssignee(),
 								task.getDescription(),
 								task.getDueDate());
+	}
+	
+	@Override
+	public Estimate getEstimate(String taskId) {
+		Map<String, Object> obj = this.taskService.getVariables(taskId);
+		Estimate estimate = new Estimate();
+		estimate.setTitle((String)obj.get("title"));
+		List<LineItem> lineItems = new ArrayList<LineItem>();
+		((ArrayList<Map<String, Object>>)obj.get("costs")).stream().forEach(cost -> lineItems.add(new LineItem(cost.get("id").toString(),
+				(String)cost.get("name"),
+				(String)cost.get("category"),
+				(String)cost.get("description"),
+				(Number)cost.get("cost"))));
+			
+		estimate.setCosts(lineItems);
+		estimate.setDescription((String)obj.get("description"));
+		estimate.setTotal((Number)obj.get("total"));
+		return estimate;
 	}
 
 }

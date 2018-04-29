@@ -14,7 +14,6 @@ export class MakeEsimtateComponent implements OnInit {
   task$: Observable<Task>;
   taskId: string;
   instance: string = 'hot';
-  dataset: any[] = Handsontable.helper.createSpreadsheetData(10, 10);
 
   estimateTable: LineItem[] = [{id: 1, name: "Item name...", category: "Engineering", description: "right click to add rows...", cost: 0.0},
                                 {id: 1, name: "...", category: "Labor", description: "...", cost: 0}];
@@ -39,15 +38,13 @@ export class MakeEsimtateComponent implements OnInit {
   { 
     //this.request.name = "test request";
   }
-
   ngOnInit() {
 
+    this.taskId = this.route.snapshot.params['taskId'];
     this.task$ = this.route.paramMap
       .switchMap((params: ParamMap) => {
-        this.taskId = params.get('taskId');
         return this.dataService.getTaskDetails(this.taskId);
-      })
-        
+    })
   }
 
   submitEstimate() {
@@ -57,11 +54,15 @@ export class MakeEsimtateComponent implements OnInit {
       title: "testTitle",
       description: "test desc",
       costs: this.estimateTable,
-      total: 1000
+      total: 1000.0
     }
     this.dataService.completeTask(this.taskId, estimate).subscribe(res => {
       console.log("completed task: ", res);
+      //go back to the dashboard
+      this.router.navigate(['/securehome/dashboard/']);
     });
+
+
   }
 
 }

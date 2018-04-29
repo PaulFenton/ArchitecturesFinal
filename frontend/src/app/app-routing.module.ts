@@ -17,6 +17,7 @@ import { ResendCodeComponent } from './public/auth/resend/resendCode.component';
 import { ForgotPassword2Component, ForgotPasswordStep1Component } from './public/auth/forgot/forgotPassword.component';
 import { NewPasswordComponent } from './public/auth/newpassword/newpassword.component';
 import { SecureHomeComponent } from './secure/landing/securehome.component';
+import { ApprovalComponent } from './secure/approval/approval.component';
 
 const homeRoutes: Routes = [
   {
@@ -52,6 +53,7 @@ const secureHomeRoutes: Routes = [
         { path: 'logout', component: LogoutComponent},
         { path: 'dashboard', component: DashboardComponent },
         { path: 'estimate', component: EstimateComponent },
+        { path: 'approve/:taskId', component: ApprovalComponent },
         { path: 'makeEstimate/:taskId', component: MakeEsimtateComponent},
         {
           path: '',
@@ -61,7 +63,6 @@ const secureHomeRoutes: Routes = [
       ]
   }
 ];
-
 const routes: Routes = [
   {
       path: '',
@@ -84,7 +85,7 @@ const routes: Routes = [
     MatMenuModule,
     RouterModule.forRoot(
       routes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false }
     )
   ],
   exports: [
