@@ -1,3 +1,44 @@
-<p>
-  dashboard works!
-</p>
+<mat-card>
+  <mat-table #table [dataSource]="dataSource">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+    </ng-container>
+
+    <!-- Due date Column -->
+    <ng-container matColumnDef="dueDate">
+      <mat-header-cell *matHeaderCellDef> Due Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dueDate}} </mat-cell>
+    </ng-container>
+
+    <!-- assignment Column -->
+    <ng-container matColumnDef="assignedTo">
+        <mat-header-cell *matHeaderCellDef> Assigned To </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.assignedTo}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: this.selection.id == row.id}" (click)="select(row)" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
+  </mat-table>
+  <mat-card-actions>
+      <button mat-button (click)="taskAction()">View Selected Task</button>
+      <button mat-button (click)="addNewTask()">Add New Task</button>
+  </mat-card-actions>
+</mat-card>
