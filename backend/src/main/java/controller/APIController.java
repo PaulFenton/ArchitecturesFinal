@@ -72,6 +72,13 @@ public class APIController {
     }
     
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping("/getReview/{taskId}")
+    public Estimate getReview(@PathVariable String taskId) {
+    	Estimate estimate = flowableService.getReview(taskId);
+    	return estimate;
+    }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/completeTask/{taskId}")
     public SimpleResponse completeTask(@PathVariable String taskId, @RequestBody Map<String, Object> estimate) {
     	return flowableService.completeTask(taskId, estimate);
