@@ -15,3 +15,10 @@ body {
   font-size: 8pt;
   float: right;
 }
+.mat-row.hovered {
+  background: #eee;
+}
+
+.mat-row.highlighted {
+  background: #999;
+}

@@ -6,6 +6,7 @@ export class Task {
   constructor(
     public id: string,
     public name: string,
+    public description: string,
     public assignedTo: string,
     public dueDate: string
   ) {}
@@ -67,9 +68,9 @@ export class DataService {
 
   // gets all tasks for all users
   getAllTasks(): Observable<Task[]> {
-    return this.http.get('http://localhost:8080/getAllTasks')
-       .map((res: Response) => res.json())
-       .catch((error: any) => Observable.throw(error.json().error || 'Server error getting all tasks'));
+    return this.http.get('http://localhost:8080/getAllTasks/')
+       .map((res: Response) => res)
+       .catch((error: any) => {console.log(error); return Observable.throw(error.json().error || 'Server error getting all tasks')});
   }
 
   // completes a task based on taskId
