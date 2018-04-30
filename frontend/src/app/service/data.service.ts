@@ -67,12 +67,19 @@ export class DataService {
       .catch((error: any) => Observable.throw(error || 'Server error getting task details'));
   }
 
-  // gets estimate details for an approval or review task
+  // gets estimate details for an approval task
   getEstimate(taskId: string): Observable<Estimate> {
     return this.http.get('http://localhost:8080/getEstimate/' + taskId)
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error|| 'Server error getting task details'));
   }
+
+    // gets estimate details for a review task
+    getReview(taskId: string): Observable<Estimate> {
+      return this.http.get('http://localhost:8080/getReview/' + taskId)
+        .map((res: Response) => res)
+        .catch((error: any) => Observable.throw(error|| 'Server error getting task details'));
+    }
 
   // gets all tasks for all users
   getAllTasks(): Observable<Task[]> {

@@ -18,6 +18,7 @@ import { ForgotPassword2Component, ForgotPasswordStep1Component } from './public
 import { NewPasswordComponent } from './public/auth/newpassword/newpassword.component';
 import { SecureHomeComponent } from './secure/landing/securehome.component';
 import { ApprovalComponent } from './secure/approval/approval.component';
+import { ReviewComponent } from './secure/review/review.component';
 
 const homeRoutes: Routes = [
   {
@@ -54,6 +55,7 @@ const secureHomeRoutes: Routes = [
         { path: 'dashboard', component: DashboardComponent },
         { path: 'estimate', component: EstimateComponent },
         { path: 'approve/:taskId', component: ApprovalComponent },
+        { path: 'review/:taskId', component: ReviewComponent },
         { path: 'makeEstimate/:taskId', component: MakeEsimtateComponent},
         {
           path: '',

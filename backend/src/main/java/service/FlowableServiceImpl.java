@@ -132,5 +132,24 @@ public class FlowableServiceImpl implements FlowableService{
 		estimate.setTotal((Number)obj.get("total"));
 		return estimate;
 	}
+	
+	@Override
+	public Estimate getReview(String taskId) {
+		Map<String, Object> obj = this.taskService.getVariables(taskId);
+		Map<String, Object> estimateObj = (Map<String, Object>)obj.get("estimate");
+		Estimate estimate = new Estimate();
+		estimate.setTitle((String)estimateObj.get("title"));
+		List<LineItem> lineItems = new ArrayList<LineItem>();
+		((ArrayList<Map<String, Object>>)estimateObj.get("costs")).stream().forEach(cost -> lineItems.add(new LineItem(cost.get("id").toString(),
+				(String)cost.get("name"),
+				(String)cost.get("category"),
+				(String)cost.get("description"),
+				(Number)cost.get("cost"))));
+			
+		estimate.setCosts(lineItems);
+		estimate.setDescription((String)estimateObj.get("description"));
+		estimate.setTotal((Number)estimateObj.get("total"));
+		return estimate;
+	}
 
 }
