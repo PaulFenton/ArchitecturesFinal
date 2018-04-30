@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { DataService, Task, Estimate, LineItem } from '../../service/data.service';
 import { Observable } from 'rxjs/Observable';
+import { CurrencyPipe } from '@angular/common';
 
 export class Approval {
   constructor(
@@ -21,13 +22,14 @@ export class ApprovalComponent implements OnInit {
   estimate$: Observable<Estimate>;
   taskId: string;
   instance: string = 'hot';
-  title: string;
-  description: string;
+  title: string = "";
+  description: string = "";
   total: Number;
 
   estimateTable: LineItem[] = [{id: 1, name: "Item name...", category: "Engineering", description: "right click to add rows...", cost: 0.0},
   {id: 1, name: "...", category: "Labor", description: "...", cost: 0.0}];
 
+  private headers: string[] = ['Name', 'Category', 'Description', 'Estimate'];
   private columns: any[] = [
     { data: 'name', type: 'text' },
     { data: 'category', type: 'dropdown',
@@ -43,7 +45,7 @@ export class ApprovalComponent implements OnInit {
     private router: Router,
     private dataService: DataService) 
   { 
-    //this.request.name = "test request";
+    
   }
 
   ngOnInit() {
@@ -58,10 +60,13 @@ export class ApprovalComponent implements OnInit {
       this.title = estimates.title;
       this.description = estimates.description;
       this.estimateTable = estimates.costs;
-      this.total = estimates.total;
+      this.updateTotal(); 
       return;
     });
-        
+       
+  }
+  private updateTotal() {
+    this.total = this.estimateTable.reduce((total, amount) => total + amount.cost, 0.0);
   }
 
   approveEstimate() {

@@ -38,7 +38,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: this.selection.id == row.id}" (click)="select(row)" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
   </mat-table>
   <mat-card-actions>
-      <button mat-button (click)="taskAction()">View Selected Task</button>
-      <button mat-button (click)="addNewTask()">Add New Task</button>
+      <button mat-raised-button (click)="taskAction()" color="accent">View Selected Task</button>
+      <button mat-raised-button (click)="addNewTask()" color="accent">Add New Task</button>
   </mat-card-actions>
 </mat-card>
