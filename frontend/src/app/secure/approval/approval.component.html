@@ -2,9 +2,12 @@
     <mat-card>
       <mat-card-title>Estimate Approval</mat-card-title>
       <mat-card-content>
-        <!--<mat-form-field>
-          <input matInput placeholder="Name" [(ngModel)]="this.request.name">
-        </mat-form-field>-->
+        <mat-form-field>
+              <input matInput placeholder="Name" [(ngModel)]="this.title" disabled="true">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Description" [(ngModel)]="this.description">
+        </mat-form-field>
         <hot-table
           [hotId]="instance"
           [columns]="columns"
@@ -14,12 +17,15 @@
           [outsideClickDeselects]="false"
           [contextMenu]="true"
           [rowHeaders]="true"
-          [colHeaders]="true">
+          [colHeaders]="true"
+          (click)="updateTotal()">
         </hot-table>
+        <h3>Total: {{this.total | currency}}</h3>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button (click)="approveEstimate()">Approve Estimate</button>
-        <button mat-button (click)="rejectEstimate()">Reject Estimate</button>
+        <button mat-raised-button (click)="approveEstimate()" color="accent">Approve Estimate</button>
+        <button mat-raised-button (click)="rejectEstimate()" color="warn">Reject Estimate</button>
       </mat-card-actions>
+      
     </mat-card>
   </div>

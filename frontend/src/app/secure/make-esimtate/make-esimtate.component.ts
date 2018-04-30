@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import * as Handsontable from 'handsontable';
 import { Observable } from 'rxjs/Observable';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-make-esimtate',
@@ -14,6 +15,9 @@ export class MakeEsimtateComponent implements OnInit {
   task$: Observable<Task>;
   taskId: string;
   instance: string = 'hot';
+  title: string = "";
+  description: string = "";
+  total: Number;
 
   estimateTable: LineItem[] = [{id: 1, name: "Item name...", category: "Engineering", description: "right click to add rows...", cost: 0.0},
                                 {id: 1, name: "...", category: "Labor", description: "...", cost: 0}];
@@ -36,7 +40,7 @@ export class MakeEsimtateComponent implements OnInit {
     private router: Router,
     private dataService: DataService) 
   { 
-    //this.request.name = "test request";
+    this.updateTotal();
   }
   ngOnInit() {
 
@@ -47,14 +51,18 @@ export class MakeEsimtateComponent implements OnInit {
     })
   }
 
+  private updateTotal() {
+    this.total = this.estimateTable.reduce((total, amount) => total + amount.cost, 0);
+  }
+
   submitEstimate() {
     console.log(this.estimateTable);
     // build the estimate object
     let estimate: Estimate = {
-      title: "testTitle",
-      description: "test desc",
+      title: this.title,
+      description: this.description,
       costs: this.estimateTable,
-      total: 1000.0
+      total: this.total
     }
     this.dataService.completeTask(this.taskId, estimate).subscribe(res => {
       console.log("completed task: ", res);
